@@ -1,6 +1,9 @@
 package org.openimaj.demos.hadoop.wordcount;
 
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -18,8 +21,13 @@ public class WordCount extends Configured implements Tool{
 	@Override
 	public int run(String[] args) throws Exception {
 		if(args.length < 2 )return 1;
+		
 		String in = args[0];
 		String out = args[1];
+		File unsorted = new File(out);
+		File sorted = new File(out + "_sort");
+		FileUtils.deleteDirectory(unsorted);
+		FileUtils.deleteDirectory(sorted);
 		
 		// COUNT THE WORDS
 		
